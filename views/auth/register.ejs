@@ -1,0 +1,71 @@
+<%- include("../includes/head.ejs") %>
+
+<body>
+  <%- include("../includes/nav.ejs") %>
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col-md-6 m-auto">
+        <div class="card card-body">
+          <h1 class="text-center mb-3">
+            Register
+          </h1>
+          <%- include("../includes/err.ejs") %>
+          <form action="/register" method="POST">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input
+                type="name"
+                id="name"
+                name="name"
+                class="form-control"
+                placeholder="Enter your name here"
+                value="<%= typeof name != 'undefined' ? name: '' %>"
+              />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-control"
+                placeholder="Enter email"
+                value="<%= typeof email != 'undefined' ? email: '' %>"
+              />
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="form-control"
+                placeholder="Enter Password"
+                value="<%= typeof password != 'undefined' ? password: '' %>"
+              />
+            </div>
+            <div class="form-group">
+              <label for="passwordConfirm">Confirm Password</label>
+              <input
+                type="password"
+                id="passwordConfirm"
+                name="passwordConfirm"
+                class="form-control"
+                placeholder="Confirm Password"
+                value="<%= typeof passwordConfirm != 'undefined' ? passwordConfirm: '' %>"
+              />
+            </div>
+            <button class="btn btn-block btn-danger" type="submit">
+              Register
+            </button>
+          </form>
+          <p class="mt-2"><a href="/login">Login</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <%- include("../includes/end.ejs") %>
+</body>
