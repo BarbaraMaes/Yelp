@@ -2,13 +2,18 @@ const db = require("../util/database");
 const Sequelize = require("sequelize");
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
-
-exports.getIndex = (req, res, next) => {
-  res.render("index", { path: "/index", pageTitle: "Index" });
-};
+const passport = require("passport");
 
 exports.getLogin = (req, res, next) => {
   res.render("auth/login", { path: "/login", pageTitle: "Login", errors: [] });
+};
+
+exports.postLogin = (req, res, next) => {
+  passport.authenticate("local", {
+    successRedirect: "/dashboard",
+    failureRedirect: "/login",
+    failureFlash: true
+  })(req, res, next);
 };
 
 exports.getRegister = (req, res, next) => {
@@ -47,12 +52,15 @@ exports.postRegister = async (req, res, next) => {
         //hash password
         const hash = bcrypt.hashSync(password, 10);
         //create a user
-        const user = await User.create({
+        await User.sync();
+        await User.create({
           name: name,
           email: email,
           password: hash
         });
-        console.log(user);
+
+        req.flash("success", "Registration Succesfull");
+        res.redirect("/login");
       }
       //if User exists
       else {
@@ -71,4 +79,9 @@ exports.postRegister = async (req, res, next) => {
       console.log(err);
     }
   }
+};
+
+exports.getLogout = (req, res, next) => {
+  req.logout();
+  res.redirect("/");
 };
