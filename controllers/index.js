@@ -4,6 +4,7 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const Restaurant = require("../models/restaurant");
+const fileHelper = require("../util/file");
 
 exports.getIndex = (req, res, next) => {
   res.render("index", { path: "/index", pageTitle: "Index" });
@@ -63,6 +64,8 @@ exports.getDetails = async (req, res, next) => {
 
 exports.deleteRestaurant = async (req, res, next) => {
   const id = req.body.id;
+  const rest = await Restaurant.findOne({ where: { id: id } });
+  fileHelper.deleteFile(rest.image);
   await Restaurant.destroy({ where: { id: id } });
   res.redirect("/dashboard");
 };
@@ -84,6 +87,7 @@ exports.updateRestaurant = async (req, res, next) => {
     if (newImage != "") {
       try {
         imageUrl = newImage.path;
+        fileHelper.deleteFile(rest.image);
       } catch (err) {
         throw err;
       }
