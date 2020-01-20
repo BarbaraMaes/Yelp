@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
+const multer = require("multer");
 
 const authRouter = require("./routes/auth");
 const indexRouter = require("./routes/index");
@@ -16,6 +17,43 @@ const User = require("./models/User");
 const Restaurant = require("./models/restaurant");
 const Review = require("./models/review");
 
+/*const storage = multer.diskStorage({
+  destination: "./public/uploads/",
+  filename: (req, file, cb) => {
+    cb(
+      null,
+      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+    );
+  }
+});
+
+const upload = multer({
+  storage: storage
+}).single("image");*/
+
+//multer config
+const uuidv4 = require("uuid/v4");
+
+const fileStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "images");
+  },
+  filename: (req, file, cb) => {
+    cb(null, uuidv4());
+  }
+});
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/jpg" ||
+    file.mimetype === "image/jpeg"
+  ) {
+    cb(null, true); //save the file
+  } else {
+    cb(null, false); // don't save the file
+  }
+};
+
 //passport conf
 require("./util/passport")(passport);
 
@@ -29,7 +67,11 @@ const app = express();
 app.use(cookieParser());
 
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(
+  multer({ storage: fileStorage, fileFilter: fileFilter }).single("image")
+);
 app.use(bodyParser.json());
+app.use("/images", express.static(path.join(__dirname, "images")));
 app.use(express.static(path.join(__dirname, "public")));
 
 //EJS

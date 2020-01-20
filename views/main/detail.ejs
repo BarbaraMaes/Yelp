@@ -2,82 +2,58 @@
 
 <body>
   <%- include("../includes/nav.ejs") %>
-  <div class="container">
-    <div class="row mt-5">
-      <div class="col-md-8 m-auto text-center">
-        <h1>Dashboard</h1>
-        <p class="lead">Welcome</p>
-        <!-- Button trigger modal -->
-        <button
-          type="button"
-          class="btn btn-info"
-          data-toggle="modal"
-          data-target="#addModal"
-        >
-          Add Restaurant
-        </button>
-        <%- include("../includes/info.ejs") %>
-      </div>
-    </div>
-    <% if(restaurants.length > 0) { %> <% for(rest of restaurants) { %>
-    <div class="row mt-3">
-      <div class="col-md-8 m-auto">
-        <div class="card mb-3">
-          <div class="row no-gutters">
-            <div class="col-md-4">
-              <img
-                src="/<%=rest.image%>"
-                class="card-img"
-                alt="Image of Restaurant"
-                height="250"
-                width="250"
-              />
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title"><%= rest.name %></h5>
-                <p class="card-text">
-                  <%= rest.adress%>
-                </p>
-                <p class="card-text" style="height: 2rem;">
-                  <%= rest.description %>
-                </p>
-                <div class="row justify-content-center mt-5">
-                  <a
-                    class="btn btn-info mx-2"
-                    href="/restaurant-details/<%= rest.id %>"
-                  >
-                    Details
-                  </a>
-                  <form action="/delete-restaurant" method="POST">
-                    <input type="hidden" value="<%= rest.id %>" name="id" />
-                    <button type="subtmit" class="btn btn-danger mx-2">
-                      Delete
-                    </button>
-                  </form>
-                </div>
-              </div>
-            </div>
+  <main>
+    <div class="container text-center mt-5">
+      <div class="row mt-5">
+        <div class="col-md-4">
+          <img
+            src="/<%=rest.image%>"
+            alt=""
+            class="img-fluid"
+            height="400"
+            width="400"
+          />
+        </div>
+        <div class="col-md-6">
+          <h1><%= rest.name %></h1>
+          <div class="text-left pl-5">
+            <p class="lead pt-4">
+              <span class="font-weight-bold">Adress:</span> <%= rest.adress %>
+            </p>
+            <p class=" lead pt-4">
+              <span class="font-weight-bold">Description:</span> <%=
+              rest.description %>
+            </p>
+            <!-- Button trigger modal -->
+            <button
+              type="button"
+              class="btn btn-info"
+              data-toggle="modal"
+              data-target="#editModal"
+            >
+              Edit Restaurant
+            </button>
           </div>
         </div>
       </div>
+      <div class="row mt-5 justify-content-center">
+        <h3 class="display-4">Reviews</h3>
+      </div>
     </div>
-    <% } %> <% } %>
-
     <!-- Modal -->
     <div
       class="modal fade"
-      id="addModal"
+      id="editModal"
       tabindex="-1"
       role="dialog"
-      aria-labelledby="addModalTitle"
+      aria-labelledby="editModalTitle"
       aria-hidden="true"
     >
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="addModalTitle">
-              Add a restaurant
+            <h5 class="modal-title" id="editModalTitle">
+              Edit Restaurant
             </h5>
             <button
               type="button"
@@ -90,13 +66,20 @@
           </div>
           <div class="modal-body">
             <form
-              action="/add-restaurant"
+              action="/edit-restaurant"
               method="POST"
               enctype="multipart/form-data"
             >
               <div class="form-group">
+                <input type="hidden" value="<%= rest.id%>" name="id" />
                 <label for="name">Name</label>
-                <input type="text" class="form-control" name="name" required />
+                <input
+                  type="text"
+                  class="form-control"
+                  name="name"
+                  required
+                  value="<%= rest.name %>"
+                />
               </div>
               <div class="form-group">
                 <label for="adress">Address</label>
@@ -104,6 +87,7 @@
                   type="text"
                   class="form-control"
                   name="adress"
+                  value="<%=rest.adress%>"
                   required
                 />
               </div>
@@ -113,6 +97,7 @@
                   type="text"
                   class="form-control"
                   name="description"
+                  value="<%=rest.description%>"
                   required
                 />
               </div>
@@ -122,6 +107,7 @@
                   type="file"
                   class="form-control-file"
                   name="image"
+                  value="<%= rest.image %>"
                   required
                 />
               </div>
@@ -142,7 +128,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </main>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <%- include("../includes/end.ejs") %>
