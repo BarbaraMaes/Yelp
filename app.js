@@ -6,10 +6,15 @@ const authRouter = require("./routes/auth");
 const indexRouter = require("./routes/index");
 
 const Sequelize = require("sequelize");
-const flash = require("express-flash");
+const flash = require("connect-flash");
 const session = require("express-session");
 const passport = require("passport");
 const cookieParser = require("cookie-parser");
+
+//model imports
+const User = require("./models/User");
+const Restaurant = require("./models/restaurant");
+const Review = require("./models/review");
 
 //passport conf
 require("./util/passport")(passport);
@@ -24,6 +29,7 @@ const app = express();
 app.use(cookieParser());
 
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 //EJS
@@ -45,8 +51,13 @@ app.use(passport.session());
 
 //flash Connect
 app.use(flash());
+
+//vars
 app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
+  res.locals.warning = req.flash("warning");
+  res.locals.isAuth = req.isAuthenticated();
   next();
 });
 
@@ -54,5 +65,19 @@ app.use((req, res, next) => {
 app.use(authRouter);
 app.use(indexRouter);
 
+//Relations
+Restaurant.hasMany(Review);
+Restaurant.belongsTo(User);
+User.hasMany(Review);
+User.hasMany(Restaurant);
+Review.belongsTo(User);
+Review.belongsTo(Restaurant);
+
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, console.log(`Server started on port ${PORT}`));
+db.sync({ alter: true })
+  .then(() => {
+    app.listen(PORT, console.log(`Server started on port ${PORT}`));
+  })
+  .catch(err => {
+    throw err;
+  });

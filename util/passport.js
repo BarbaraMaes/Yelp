@@ -17,10 +17,8 @@ module.exports = function(passport) {
           }
           //check password
           bcrypt.compare(password, user.password, (err, match) => {
-            console.log("compare passwords");
             if (err) throw err;
             if (match) {
-              console.log("passwords match");
               return done(null, user);
             } else {
               return done(null, false, { message: "Incorrect Password" });
@@ -34,7 +32,6 @@ module.exports = function(passport) {
   );
 
   passport.serializeUser((user, done) => {
-    console.log("serialize");
     done(null, user.id);
   });
 

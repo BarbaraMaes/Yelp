@@ -17,7 +17,23 @@
       id="navbarNavDropdown"
     >
       <ul class="navbar-nav">
+        <% if(!isAuth) { %>
         <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="/login" class="nav-link">Login</a></li>
+        <li class="nav-item">
+          <a href="/register" class="nav-link">Register</a>
+        </li>
+        <%} %> <% if(isAuth) { %>
+        <li class="nav-item">
+          <a href="/dashboard" class="nav-link">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a href="/reviews" class="nav-link">My Reviews</a>
+        </li>
+        <li class="nav-item">
+          <a href="/logout" class="nav-link text-danger">Logout</a>
+        </li>
+        <%} %>
       </ul>
     </div>
   </div>

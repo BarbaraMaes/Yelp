@@ -1,8 +1,16 @@
 exports.isAuth = (req, res, next) => {
-  if (req.isAuthenticated) {
-    console.log(req.isAuthenticated);
-    next();
+  if (req.isAuthenticated()) {
+    return next();
   } else {
-    res.redirect("/index");
+    req.flash("warning", "You have to be logged in to view that page");
+    res.redirect("/login");
+  }
+};
+
+exports.forwardAuth = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    res.redirect("/dashboard");
+  } else {
+    return next();
   }
 };
