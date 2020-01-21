@@ -105,7 +105,7 @@ let PORT = process.env.PORT; //|| 3000;
 if (PORT == null || PORT == "") {
   PORT = 3000;
 }
-db.sync({ alter: true })
+db.sync() //{ alter: true }
   .then(() => {
     app.listen(PORT, console.log(`Server started on port ${PORT}`));
   })

@@ -1,8 +1,8 @@
 const Sequelize = require("sequelize");
 
-module.exports = new Sequelize("yelp", "root", "1234", {
+module.exports = new Sequelize("yelp", "postgres", "1234", {
   host: "localhost",
-  dialect: "mysql",
+  dialect: "postgres",
   operatorsAliases: false,
 
   pool: {
