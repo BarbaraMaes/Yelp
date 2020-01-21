@@ -4,6 +4,7 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const Restaurant = require("../models/restaurant");
+const Review = require("../models/review");
 const fileHelper = require("../util/file");
 
 exports.getIndex = (req, res, next) => {
@@ -55,10 +56,12 @@ exports.getDetails = async (req, res, next) => {
       id: id
     }
   });
+  const reviews = await Review.findAll({ where: { restaurantId: id } });
   res.render("main/detail", {
     path: "/detail",
     pageTitle: restaurant.name,
-    rest: restaurant
+    rest: restaurant,
+    reviews: reviews || []
   });
 };
 
@@ -104,6 +107,22 @@ exports.updateRestaurant = async (req, res, next) => {
       { where: { id: id } }
     );
     res.redirect("/restaurant-details/" + id);
+  } catch (err) {
+    throw err;
+  }
+};
+
+exports.postReview = async (req, res, next) => {
+  const restId = req.body.restId;
+  const rating = req.body.rating;
+  const text = req.body.text;
+  try {
+    const rest = await Restaurant.findOne({ where: { id: restId } });
+    rest.createReview({
+      text: text,
+      rating: rating
+    });
+    res.redirect("/restaurant-details/" + restId);
   } catch (err) {
     throw err;
   }

@@ -45,7 +45,7 @@
             <form action="/add-review" method="POST">
               <div class="card-body">
                 <h4 class="my-2">Write a Review</h4>
-                <div id="stars" class="form-group my-2">
+                <div id="stars" class="form-group my-3">
                   <span id="1" class="far fa-star"></span>
                   <span id="2" class="far fa-star"></span>
                   <span id="3" class="far fa-star"></span>
@@ -62,9 +62,8 @@
                 </div>
               </div>
               <div class="card-footer">
-                <button type="button" class="btn btn-secondary">
-                  Close
-                </button>
+                <input type="hidden" value="0" id="rating" />
+                <input type="hidden" value="<%= rest.id %>" id="restId" />
                 <button type="submit" id="review_add" class="btn btn-primary">
                   Save
                 </button>
@@ -73,6 +72,12 @@
           </div>
         </div>
       </div>
+      <% if(reviews.length > 0) { %> <% for(review of reviews) { %>
+      <div class="row mt-5">
+        <p class="lead"><%= review.text %></p>
+        <p class="lead"><%= review.rating %></p>
+      </div>
+      <% } %> <% } %>
     </div>
     <!-- Modal -->
     <div

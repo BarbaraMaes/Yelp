@@ -15,4 +15,6 @@ router.post("/edit-restaurant", indexController.updateRestaurant);
 
 router.post("/delete-restaurant", indexController.deleteRestaurant);
 
+router.post("/add-review", indexController.postReview);
+
 module.exports = router;

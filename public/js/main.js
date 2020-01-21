@@ -4,8 +4,8 @@ $("#submit_add").submit(() => {
 
 function fill(el) {
   let id = $(el).attr("id");
+  $("#rating").val(id);
   if (id > 1) {
-    console.log("id bigger than one");
     $(el)
       .prevAll()
       .each(function() {
@@ -18,6 +18,7 @@ function fill(el) {
 
 function empty(el) {
   let id = $(el).attr("id");
+  $("#rating").val(id);
   if (id < 5) {
     $(el)
       .nextAll()
