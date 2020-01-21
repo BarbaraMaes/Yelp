@@ -1,10 +1,10 @@
 const db = require("../util/database");
 const Sequelize = require("sequelize");
-const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const Restaurant = require("../models/restaurant");
 const Review = require("../models/review");
+const User = require("../models/User");
 const fileHelper = require("../util/file");
 
 exports.getIndex = (req, res, next) => {
@@ -56,7 +56,12 @@ exports.getDetails = async (req, res, next) => {
       id: id
     }
   });
-  const reviews = await Review.findAll({ where: { restaurantId: id } });
+  const reviews = await Review.findAll({
+    include: [{ model: User }],
+    where: { restaurantId: id }
+  });
+  //console.log(JSON.stringify(reviews, null, 2));
+  //console.log(reviews[3].user);
   res.render("main/detail", {
     path: "/detail",
     pageTitle: restaurant.name,
@@ -118,10 +123,13 @@ exports.postReview = async (req, res, next) => {
   const text = req.body.text;
   try {
     const rest = await Restaurant.findOne({ where: { id: restId } });
-    rest.createReview({
+    const result = await rest.createReview({
       text: text,
-      rating: rating
+      rating: rating,
+      userId: req.user.id
     });
+    console.log(rest);
+    console.log(result);
     res.redirect("/restaurant-details/" + restId);
   } catch (err) {
     throw err;

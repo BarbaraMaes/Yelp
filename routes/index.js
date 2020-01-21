@@ -7,14 +7,14 @@ router.get("/", forwardAuth, indexController.getIndex);
 
 router.get("/dashboard", isAuth, indexController.getDashboard);
 
-router.post("/add-restaurant", indexController.postRestaurant);
+router.post("/add-restaurant", isAuth, indexController.postRestaurant);
 
-router.get("/restaurant-details/:id", indexController.getDetails);
+router.get("/restaurant-details/:id", isAuth, indexController.getDetails);
 
-router.post("/edit-restaurant", indexController.updateRestaurant);
+router.post("/edit-restaurant", isAuth, indexController.updateRestaurant);
 
-router.post("/delete-restaurant", indexController.deleteRestaurant);
+router.post("/delete-restaurant", isAuth, indexController.deleteRestaurant);
 
-router.post("/add-review", indexController.postReview);
+router.post("/add-review", isAuth, indexController.postReview);
 
 module.exports = router;
