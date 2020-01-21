@@ -3,7 +3,7 @@ const Sequelize = require("sequelize");
 //module.exports =
 let sequelize;
 if (process.env.HEROKU_POSTGRESQL_BLUE_URL) {
-  sequelize = new Sequelize(process.env.HEROKU_POSTGRESQL_BRONZE_URL, {
+  sequelize = new Sequelize(process.env.HEROKU_POSTGRESQL_BLUE_URL, {
     dialect: "postgres",
     protocol: "postgres",
     port: match[4],
