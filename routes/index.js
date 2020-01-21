@@ -5,7 +5,7 @@ const { isAuth, forwardAuth } = require("../middleware/isAuth");
 
 router.get("/", forwardAuth, indexController.getIndex);
 
-router.get("/dashboard", isAuth, indexController.getDashboard);
+router.get("/dashboard", indexController.getDashboard);
 
 router.post("/add-restaurant", isAuth, indexController.postRestaurant);
 

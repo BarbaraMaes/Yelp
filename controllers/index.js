@@ -13,11 +13,9 @@ exports.getIndex = (req, res, next) => {
 
 exports.getDashboard = async (req, res, next) => {
   const restaurants = await Restaurant.findAll();
-  //console.log(restaurants);
   res.render("main/dashboard", {
     path: "/dashboard",
     pageTitle: "Dashboard",
-    name: req.user.name,
     restaurants: restaurants || []
   });
 };
@@ -60,8 +58,6 @@ exports.getDetails = async (req, res, next) => {
     include: [{ model: User }],
     where: { restaurantId: id }
   });
-  //console.log(JSON.stringify(reviews, null, 2));
-  //console.log(reviews[3].user);
   res.render("main/detail", {
     path: "/detail",
     pageTitle: restaurant.name,

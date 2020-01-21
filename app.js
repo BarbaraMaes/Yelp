@@ -17,20 +17,6 @@ const User = require("./models/User");
 const Restaurant = require("./models/restaurant");
 const Review = require("./models/review");
 
-/*const storage = multer.diskStorage({
-  destination: "./public/uploads/",
-  filename: (req, file, cb) => {
-    cb(
-      null,
-      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
-    );
-  }
-});
-
-const upload = multer({
-  storage: storage
-}).single("image");*/
-
 //multer config
 const uuidv4 = require("uuid/v4");
 
@@ -115,7 +101,10 @@ User.hasMany(Restaurant);
 Review.belongsTo(User);
 Review.belongsTo(Restaurant);
 
-const PORT = process.env.PORT || 3000;
+let PORT = process.env.PORT; //|| 3000;
+if (PORT == null || PORT == "") {
+  PORT = 3000;
+}
 db.sync({ alter: true })
   .then(() => {
     app.listen(PORT, console.log(`Server started on port ${PORT}`));
