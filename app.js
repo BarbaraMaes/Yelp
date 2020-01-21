@@ -94,12 +94,13 @@ app.use(authRouter);
 app.use(indexRouter);
 
 //Relations
-Restaurant.hasMany(Review);
+
+/*Restaurant.hasMany(Review);
 Restaurant.belongsTo(User);
 User.hasMany(Review);
 User.hasMany(Restaurant);
 Review.belongsTo(User);
-Review.belongsTo(Restaurant);
+Review.belongsTo(Restaurant);*/
 
 let PORT = process.env.PORT; //|| 3000;
 if (PORT == null || PORT == "") {
