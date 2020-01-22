@@ -2,6 +2,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 const multer = require("multer");
+const helmet = require("helmet");
+//const compression = require("compression");
+//const morgan = require("morgan");
+//const fs = require("fs");
 
 const authRouter = require("./routes/auth");
 const indexRouter = require("./routes/index");
@@ -50,7 +54,14 @@ db.authenticate()
   .catch(err => console.log("err: " + err));
 
 const app = express();
+
+/*const accessLogStream = fs.WriteStream(path.join(__dirname, "access.log"), {
+  flags: "a"
+});*/
 app.use(cookieParser());
+app.use(helmet());
+//app.use(compression());
+//app.use(morgan("combined", { stream: accessLogStream }));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(
@@ -101,10 +112,7 @@ User.hasMany(Restaurant);
 Review.belongsTo(User);
 Review.belongsTo(Restaurant);
 
-let PORT = process.env.PORT; //|| 3000;
-if (PORT == null || PORT == "") {
-  PORT = 3000;
-}
+let PORT = process.env.PORT || 3000;
 db.sync() //{ alter: true }
   .then(() => {
     app.listen(PORT, console.log(`Server started on port ${PORT}`));

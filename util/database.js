@@ -1,14 +1,19 @@
 const Sequelize = require("sequelize");
 
-module.exports = new Sequelize("yelp", "postgres", "1234", {
-  host: "localhost",
-  dialect: "postgres",
-  operatorsAliases: false,
+module.exports = new Sequelize(
+  `${process.env.DB_NAME}`,
+  `${process.env.DB_USERNAME}`,
+  `${process.env.DB_PASSWORD}`,
+  {
+    host: `${process.env.DB_HOST}`,
+    dialect: "postgres",
+    operatorsAliases: false,
 
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
+    }
   }
-});
+);

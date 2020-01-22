@@ -5,19 +5,23 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "NODE_ENV=production DB_NAME=yelp DB_USERNAME=postgres DB_PASSWORD=1234 DB_HOST=localhost node app.js",
+    "dev": "nodemon app.js"
   },
   "author": "Barbara",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.4",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
     "express-flash": "0.0.2",
     "express-session": "^1.17.0",
+    "helmet": "^3.21.2",
+    "morgan": "^1.9.1",
     "multer": "^1.4.2",
     "mysql": "^2.18.0",
     "mysql2": "^2.1.0",
