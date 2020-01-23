@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=production DB_NAME=yelp DB_USERNAME=postgres DB_PASSWORD=1234 DB_HOST=localhost node app.js",
+    "start": "node app.js",
     "dev": "nodemon app.js"
   },
   "author": "Barbara",
@@ -32,6 +32,7 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "pg": "^7.17.1",
+    "pg-hstore": "^2.3.3",
     "sequelize": "^5.21.3",
     "uuidv4": "^6.0.1"
   }

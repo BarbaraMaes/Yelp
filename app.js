@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const multer = require("multer");
 const helmet = require("helmet");
-//const compression = require("compression");
+const compression = require("compression");
 //const morgan = require("morgan");
 //const fs = require("fs");
 

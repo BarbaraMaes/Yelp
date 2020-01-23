@@ -1,19 +1,24 @@
 const Sequelize = require("sequelize");
+let sequelize;
 
-module.exports = new Sequelize(
-  `${process.env.DB_NAME}`,
-  `${process.env.DB_USERNAME}`,
-  `${process.env.DB_PASSWORD}`,
-  {
-    host: `${process.env.DB_HOST}`,
-    dialect: "postgres",
-    operatorsAliases: false,
+/*if ((process.env.NODE_ENV = "production")) {
+  sequelize = new Sequelize({
+    url: process.env.DEV_DATABASE_URL,
+    dialect: "postgres"
+  });
+} else {*/
+sequelize = new Sequelize(`yelp`, `postgres`, `1234`, {
+  host: `localhost`,
+  dialect: "postgres",
+  operatorsAliases: false,
 
-    pool: {
-      max: 5,
-      min: 0,
-      acquire: 30000,
-      idle: 10000
-    }
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
   }
-);
+});
+//}
+
+module.exports = sequelize;
