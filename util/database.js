@@ -40,15 +40,15 @@ sequelize = new Sequelize(
 
 pg.defaults.ssl = true;
 sequelize = new Sequelize(
-  `d6brb84vpoto1j`,
-  `bvwjdrxqrrslpg`,
-  `d8451bfc9e65fa7f3640a197b4a8145ba8beebb5b2f3cb707912d9dd19b4217a`,
+  `dak95c4034e26e`,
+  `nxljgqupvqbvqe`,
+  `471a88f316360528d017f9af306bca8d73dae6eaaa80976eed3afa57d53b0aef`,
   {
-    host: `ec2-54-247-188-107.eu-west-1.compute.amazonaws.com`,
+    host: `ec2-54-247-74-242.eu-west-1.compute.amazonaws.com`,
     dialect: "postgres",
     operatorsAliases: false,
     uri:
-      "postgres://bvwjdrxqrrslpg:d8451bfc9e65fa7f3640a197b4a8145ba8beebb5b2f3cb707912d9dd19b4217a@ec2-54-247-188-107.eu-west-1.compute.amazonaws.com:5432/d6brb84vpoto1j",
+      "postgres://nxljgqupvqbvqe:471a88f316360528d017f9af306bca8d73dae6eaaa80976eed3afa57d53b0aef@ec2-54-247-74-242.eu-west-1.compute.amazonaws.com:5432/dak95c4034e26e",
     port: "5432",
 
     pool: {
