@@ -88,7 +88,7 @@ exports.updateRestaurant = async (req, res, next) => {
         id: id
       }
     });
-    if (newImage != "") {
+    /*if (newImage != "") {
       try {
         imageUrl = newImage.path;
         fileHelper.deleteFile(rest.image);
@@ -96,6 +96,10 @@ exports.updateRestaurant = async (req, res, next) => {
         throw err;
       }
     } else {
+      imageUrl = restaurant.image;
+    }
+    */
+    if ((newImage = "")) {
       imageUrl = restaurant.image;
     }
     await Restaurant.update(
