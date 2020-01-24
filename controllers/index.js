@@ -69,7 +69,7 @@ exports.getDetails = async (req, res, next) => {
 exports.deleteRestaurant = async (req, res, next) => {
   const id = req.body.id;
   const rest = await Restaurant.findOne({ where: { id: id } });
-  fileHelper.deleteFile(rest.image);
+  //fileHelper.deleteFile(rest.image);
   await Restaurant.destroy({ where: { id: id } });
   res.redirect("/dashboard");
 };
