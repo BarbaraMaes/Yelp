@@ -5,7 +5,7 @@ const passport = require("passport");
 const Restaurant = require("../models/restaurant");
 const Review = require("../models/review");
 const User = require("../models/User");
-const fileHelper = require("../util/file");
+//const fileHelper = require("../util/file");
 
 exports.getIndex = (req, res, next) => {
   res.render("index", { path: "/index", pageTitle: "Index" });
