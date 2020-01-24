@@ -68,10 +68,14 @@ exports.getDetails = async (req, res, next) => {
 
 exports.deleteRestaurant = async (req, res, next) => {
   const id = req.body.id;
-  const rest = await Restaurant.findOne({ where: { id: id } });
-  //fileHelper.deleteFile(rest.image);
-  await Restaurant.destroy({ where: { id: id } });
-  res.redirect("/dashboard");
+  try {
+    const rest = await Restaurant.findOne({ where: { id: id } });
+    //fileHelper.deleteFile(rest.image);
+    await Restaurant.destroy({ where: { id: id } });
+    res.redirect("/dashboard");
+  } catch (err) {
+    throw err;
+  }
 };
 
 exports.updateRestaurant = async (req, res, next) => {
@@ -99,8 +103,8 @@ exports.updateRestaurant = async (req, res, next) => {
       imageUrl = restaurant.image;
     }
     */
-    if ((newImage = "")) {
-      imageUrl = restaurant.image;
+    if (newImage != undefined) {
+      imageUrl = newImage.path;
     }
     await Restaurant.update(
       {
